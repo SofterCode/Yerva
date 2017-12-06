@@ -12,6 +12,6 @@ import java.util.Vector;
 
 public class Ipsum implements Serializable {
 
-   public static Vector<String>ParkingLotNameList = new Vector<String>();
+   public static Vector<ParkingLotSample>FacilitiesPLots = new Vector<ParkingLotSample>();
    public static Vector<LatLng>latLngList = new Vector<LatLng>();
 }

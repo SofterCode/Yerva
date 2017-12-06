@@ -14,6 +14,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocationsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -24,8 +26,10 @@ public class LocationsActivity extends FragmentActivity implements OnMapReadyCal
     * and their addresses
     * */
     private GoogleMap mMap;
-    private String parkLotNames[];
+    private String parkLots[];
+    private ArrayList<ParkingLotSample> plsLocation;
     private static int index =0;
+    private static int ind2 =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,20 +77,28 @@ public class LocationsActivity extends FragmentActivity implements OnMapReadyCal
         /*LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
-
-        parkLotNames = new String[Ipsum.ParkingLotNameList.toArray().length];
-
-        Object[] tempLocName = Ipsum.ParkingLotNameList.toArray();
-
-        for(int i=0;i<tempLocName.length;i++){
-            //get the parking lot names from the data set loaded
-            parkLotNames[i]=tempLocName[i].toString();
-
+        //need to reconsider this:
+        plsLocation = new ArrayList<>();
+        int lots = Ipsum.FacilitiesPLots.size();
+        //set the location objects in the array list
+        for(int i=0; i < lots; i++){
+            plsLocation.set(i, Ipsum.FacilitiesPLots.elementAt(i));
+            ind2++;
         }
+
+            //have to find better value for "100", need to consider what size
+               // Ipsum.FacilitiesPLots;
+        ;
+
+//        for(int i=0;i<tempLocName.length;i++){
+//            //get the parking lot names from the data set loaded
+//            parkLotNames[i]=tempLocName[i].toString();
+//
+//        }
 
         //put markers for the lots on the map
         for(LatLng neighborhood : Ipsum.latLngList){
-            mMap.addMarker(new MarkerOptions().position(neighborhood).title(parkLotNames[index])).setTag(neighborhood);
+            mMap.addMarker(new MarkerOptions().position(neighborhood).title(plsLocation.get(index).getParkName())).setTag(neighborhood);
             index++;
 
 
@@ -95,11 +107,11 @@ public class LocationsActivity extends FragmentActivity implements OnMapReadyCal
                 @Override
                 public void onInfoWindowClick(Marker arg0) {
                     Intent send = new Intent(getApplicationContext(), NameActivity.class);
-                    for(int i =0;i<parkLotNames.length; i++){
-                        if(parkLotNames[i].contains(arg0.getTitle())){
+                    for(int i =0;i < plsLocation.size(); i++){
+                        if(plsLocation.get(i).getParkName().contains(arg0.getTitle())){
                             index = i;
                         }
-                        send.putExtra("Name", parkLotNames[index]);
+                        send.putExtra("Name", plsLocation.get(index).getParkName());
                         index =0;
                         startActivity(send);
                     }

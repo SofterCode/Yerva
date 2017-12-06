@@ -16,8 +16,6 @@ class ParkingLotSample {
     private String parkName;
     private Integer numSpaces;
     private Integer numHSpaces;
-
-
     private Double parkLat;
     private Double parkLong;
     private String access;
@@ -53,11 +51,10 @@ class ParkingLotSample {
     public void setpAssetId(Integer pAssetId) {
         this.pAssetId = pAssetId;
     }
+
     public void setParkName(String parkName) {
         this.parkName = parkName;
     }
-
-
 
     public void setNumSpaces(Integer numSpaces) {
 
@@ -67,11 +64,6 @@ class ParkingLotSample {
         else{this.numSpaces = 0;}
 
     }
-
-    public Integer getNumHSpaces() {
-        return numHSpaces;
-    }
-
     public void setNumHSpaces(Integer numHSpaces) {
 
         if(numHSpaces !=0) {
@@ -85,15 +77,22 @@ class ParkingLotSample {
         String latitude = latNums.substring(2, 17);
         this.parkLat = Double.parseDouble(latitude);
     }
+    public void setParkLong(String longNums){
+        String Longitude = longNums.substring(0,16);
+        this.parkLong = Double.parseDouble(Longitude);
+    }
+
+
+
 
     public Double getParkLat(){
         return parkLat;
     }
 
-    public void setParkLong(String longNums){
-        String Longitude = longNums.substring(0,16);
-        this.parkLong = Double.parseDouble(Longitude);
+    public Integer getNumHSpaces() {
+        return numHSpaces;
     }
+
     public Double getParkLong(){
         return parkLong;
     }

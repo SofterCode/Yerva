@@ -47,15 +47,15 @@ public class MainActivity extends AppCompatActivity {
                 pls.setParkName(tokens[1]);
                 pls.setNumSpaces(Integer.parseInt(tokens[2]));
 
-                if(tokens[3]!=""){pls.setNumHSpaces(Integer.parseInt(tokens[3]));}
+                pls.setNumHSpaces(Integer.parseInt(tokens[3]));
                 pls.setParkLat(tokens[4]);
                 pls.setParkLong(tokens[5]);
                 pls.setAccess(tokens[6]);
-                newParkLots.add(pls);
+
 
                LatLng parkLatLng = new LatLng(pls.getParkLat(), pls.getParkLong());
                 Ipsum.latLngList.add(parkLatLng);
-                Ipsum.ParkingLotNameList.add(pls.getParkName());
+                Ipsum.FacilitiesPLots.add(pls);
 
 
                 Log.d("MainActivity", "Just created: "+ pls);
