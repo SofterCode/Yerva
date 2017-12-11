@@ -2,20 +2,15 @@ package com.example.foster.parkthis;
 
 import android.content.Intent;
 
-import android.location.Address;
-import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.util.List;
 
 
 public class LoadingActivity extends AppCompatActivity {
@@ -101,13 +96,17 @@ Log.d("loading", "streets loaded");
 
                     //LatLng parkLatLng = new LatLng(pls.getParkLat(), pls.getParkLong());
 
-                    Ipsum.FacilitiesPLots.add(pls);
+                    ParkingLotInfo.FacilitiesPLots.add(pls);             //problem here in how I am loading the data into ParkingLotInfo
+                                                                            //if use .add "woodbine beach park", the name of the last park is all the
+                                                                            //comes to the listview in viewLotsActivity. If I use anything else, addElement or add using an index,
+                                                                            //it crashes, and nothing goes to it...
+                    ParkingLotInfo.indexForPLots++;
                     idx3++;
                 }
                 park_names = new String[idx3];
 
                 for (int r = 0; r < park_names.length; r++){
-                    park_names[r]=Ipsum.FacilitiesPLots.get(r).getParkName();
+                    park_names[r]= ParkingLotInfo.FacilitiesPLots.get(r).getParkName();
 
                 }
 

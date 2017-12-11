@@ -21,11 +21,11 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 
 public class MainActivity extends AppCompatActivity {
-
+/*
     private String parkingLots[];
 
     private List<ParkingLotSample> newParkLots = new ArrayList<ParkingLotSample>();
-    private void readParkingData(){
+    //private void readParkingData(){
 
         //raw resources returns an input stream
         InputStream is = getResources().openRawResource(R.raw.plotfac);
@@ -54,16 +54,16 @@ public class MainActivity extends AppCompatActivity {
 
 
                LatLng parkLatLng = new LatLng(pls.getParkLat(), pls.getParkLong());
-                Ipsum.latLngList.add(parkLatLng);
-                Ipsum.FacilitiesPLots.add(pls);
+                ParkingLotInfo.latLngList.add(parkLatLng);
+                ParkingLotInfo.FacilitiesPLots.add(pls);
 
 
                 Log.d("MainActivity", "Just created: "+ pls);
             }
         } catch (IOException e) {
             Log.wtf("MainActivity", "Error reading data file on line " + line, e);
-        }
-    }
+        }*/
+    //}
 
 
 
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void locationHandler(){
-        Intent locationsIntent = new Intent(MainActivity.this, LocationsActivity.class);
+        Intent locationsIntent = new Intent(MainActivity.this, viewLotsActivity.class);
         startActivity(locationsIntent);
     }
 
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        readParkingData();
+        //readParkingData();
 
         Button nameButton = (Button) findViewById(R.id.location);
         Button addressButton = (Button)findViewById(R.id.address);

@@ -16,18 +16,21 @@ public class NameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_name);
+       // setContentView(R.layout.activity_name);
 
         //get the name of the lot wanted
-        final String parkingLotName = getIntent().getStringExtra("Name");
+        final int pSampNum = getIntent().getIntExtra("name",-1);
 
         //grab the details about the lot with the name
-        getDetails(parkingLotName);
+        ParkingLotSample pls = ParkingLotInfo.getInstance().getLotInfo(pSampNum);
+        details[0] = pls.getParkName();
+        details[1] = pls.getNumSpaces().toString();
+        details[2] = pls.getNumHSpaces().toString();
 
         setContentView(R.layout.activity_name);
 
         TextView titleChange = (TextView) findViewById(R.id.titlePark);
-        titleChange.setText(parkingLotName);
+        titleChange.setText(pls.getParkName());
 
         String[] lotDetails = getResources().getStringArray(R.array.pLottypes_array);
         ListView listView = (ListView) findViewById(R.id.listView2);
@@ -39,7 +42,7 @@ public class NameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent send = new Intent(getApplicationContext(), MapsActivity.class);
-                send.putExtra("Name", parkingLotName);
+                send.putExtra("Name", pSampNum); //might as well use the number of the park passed in
                 startActivity(send);
             }
         });
@@ -49,5 +52,14 @@ public class NameActivity extends AppCompatActivity {
 
     }
 
-    public void getDetails(String pLotName){}
+    public ParkingLotSample getParkingLot(int lotNum){
+        if(lotNum!=-1){
+        ParkingLotSample newLot = new ParkingLotSample();
+
+            newLot = ParkingLotInfo.FacilitiesPLots.elementAt(lotNum);
+
+            return newLot;
+        }else{return null;}
+
+    }
 }

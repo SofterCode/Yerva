@@ -10,8 +10,11 @@ import static java.lang.Double.parseDouble;
 
 class ParkingLotSample {
 
+
+
     //members that match the names of the columns
     //of parking lot data
+    private Integer sampleId;
     private Integer pAssetId;
     private String parkName;
     private Integer numSpaces;
@@ -36,6 +39,8 @@ class ParkingLotSample {
 
 
     //getters and setters
+    public Integer getSampleId() {return sampleId; }
+
     public Integer getpAssetId() {
         return pAssetId;
     }
@@ -47,7 +52,25 @@ class ParkingLotSample {
         return parkName;
     }
 
+    public Double getParkLat(){
+        return parkLat;
+    }
 
+    public Integer getNumHSpaces() {
+        return numHSpaces;
+    }
+
+    public Double getParkLong(){
+        return parkLong;
+    }
+    public String getAccess() {
+        return access;
+    }
+
+
+    public void setSampleId(Integer sampleId) {
+        this.sampleId = sampleId;
+    }
     public void setpAssetId(Integer pAssetId) {
         this.pAssetId = pAssetId;
     }
@@ -74,36 +97,18 @@ class ParkingLotSample {
     }
     public void setParkLat(String latNums ){
 
-        String latitude = latNums.substring(2, 17);
+        String latitude = latNums.substring(2, 16);
         this.parkLat = Double.parseDouble(latitude);
     }
     public void setParkLong(String longNums){
-        String Longitude = longNums.substring(0,16);
+        String Longitude = longNums.substring(0,13);
         this.parkLong = Double.parseDouble(Longitude);
-    }
-
-
-
-
-    public Double getParkLat(){
-        return parkLat;
-    }
-
-    public Integer getNumHSpaces() {
-        return numHSpaces;
-    }
-
-    public Double getParkLong(){
-        return parkLong;
-    }
-    public String getAccess() {
-        return access;
     }
 
     public void setAccess(String access) {
 
         if(access!=null){this.access = access;}
-        else{access = "not stated";}
+        else{access = "";}
 
     }
 

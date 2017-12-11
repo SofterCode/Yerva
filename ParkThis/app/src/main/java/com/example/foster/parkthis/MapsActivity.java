@@ -46,7 +46,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         /*LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
-        String parkLotName = getIntent().getStringExtra("Name");
+        Integer lotNum = getIntent().getIntExtra("Name", -1);
+        String parkLotName = ParkingLotInfo.FacilitiesPLots.get(lotNum).getParkName().toString();
         Geocoder x = new Geocoder(this);
         List<Address> addressList = null;
 

@@ -14,7 +14,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,16 +77,16 @@ public class LocationsActivity extends FragmentActivity implements OnMapReadyCal
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
         //need to reconsider this:
-        plsLocation = new ArrayList<>();
-        int lots = Ipsum.FacilitiesPLots.size();
+       /* plsLocation = new ArrayList<>();
+        int lots = ParkingLotInfo.FacilitiesPLots.size();
         //set the location objects in the array list
         for(int i=0; i < lots; i++){
-            plsLocation.set(i, Ipsum.FacilitiesPLots.elementAt(i));
+            plsLocation.set(i, ParkingLotInfo.FacilitiesPLots.elementAt(i));
             ind2++;
-        }
+        }*/
 
             //have to find better value for "100", need to consider what size
-               // Ipsum.FacilitiesPLots;
+               // ParkingLotInfo.FacilitiesPLots;
         ;
 
 //        for(int i=0;i<tempLocName.length;i++){
@@ -97,8 +96,19 @@ public class LocationsActivity extends FragmentActivity implements OnMapReadyCal
 //        }
 
         //put markers for the lots on the map
-        for(LatLng neighborhood : Ipsum.latLngList){
-            mMap.addMarker(new MarkerOptions().position(neighborhood).title(plsLocation.get(index).getParkName())).setTag(neighborhood);
+        int count=-1;
+        String parkName = "";
+        final Integer numOfLots = ParkingLotInfo.FacilitiesPLots.size();
+        Double parkLat = 0.0;
+        Double parkLon = 0.0;
+        for(Object lot : ParkingLotInfo.FacilitiesPLots){
+            count++;
+             parkName = ParkingLotInfo.FacilitiesPLots.elementAt(count).getParkName().toString();
+            parkLat = ParkingLotInfo.FacilitiesPLots.elementAt(count).getParkLat();
+            parkLon = ParkingLotInfo.FacilitiesPLots.elementAt(count).getParkLong();
+
+            LatLng pLot = new LatLng(parkLat,parkLon);
+            mMap.addMarker(new MarkerOptions().position(pLot).title(parkName)).setTag(pLot);
             index++;
 
 
@@ -107,11 +117,11 @@ public class LocationsActivity extends FragmentActivity implements OnMapReadyCal
                 @Override
                 public void onInfoWindowClick(Marker arg0) {
                     Intent send = new Intent(getApplicationContext(), NameActivity.class);
-                    for(int i =0;i < plsLocation.size(); i++){
-                        if(plsLocation.get(i).getParkName().contains(arg0.getTitle())){
+                    for(int i =0;i < numOfLots; i++){
+                        if(ParkingLotInfo.FacilitiesPLots.get(i).getParkName().contains(arg0.getTitle())){
                             index = i;
                         }
-                        send.putExtra("Name", plsLocation.get(index).getParkName());
+                        send.putExtra("Name", ParkingLotInfo.FacilitiesPLots.get(index).getSampleId());
                         index =0;
                         startActivity(send);
                     }
@@ -120,5 +130,6 @@ public class LocationsActivity extends FragmentActivity implements OnMapReadyCal
 
 
         }
+        index=0;
     }
 }

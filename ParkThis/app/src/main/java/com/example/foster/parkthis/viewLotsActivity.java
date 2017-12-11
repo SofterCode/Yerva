@@ -3,7 +3,6 @@ package com.example.foster.parkthis;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,7 +10,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class viewLotsActivity extends AppCompatActivity {
 
@@ -19,21 +17,27 @@ public class viewLotsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_lots);
 
+        List<String> lotStrings = new ArrayList<String>();
 
-        int count = Ipsum.FacilitiesPLots.size();
-        for(int i=0;i<count; i++){
+        int lotIndex = ParkingLotInfo.getParkLotIndex();
+        for(int i=0;i<lotIndex; i++){
 
+        ParkingLotSample parkLots = ParkingLotInfo.getInstance().getLotInfo(i);
+        lotStrings.add(i, parkLots.getParkName());
 
-try {
-    pls2.add(i, Ipsum.FacilitiesPLots.get(i));      //having a problem here getting the pls2 listView to populate
-}catch(Exception e){e.printStackTrace();}
+        //tried to make a data class getter to make a string of the vector, and use it
+        try {
+
+            pls2.add(i, parkLots);      //having a problem here getting the pls2 listView to populate
+            }catch(Exception e){e.printStackTrace();}
 
         }
 
+        setContentView(R.layout.activity_view_lots);
+
         ListView lotsParks = (ListView) findViewById(R.id.listView);
-        ArrayAdapter ar = new ArrayAdapter(this,android.R.layout.simple_list_item_1, pls2);
+        ArrayAdapter ar = new ArrayAdapter(this,android.R.layout.simple_list_item_1, lotStrings);
         lotsParks.setAdapter(ar);
 
         lotsParks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
